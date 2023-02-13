@@ -4,9 +4,222 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="http://fonts.googleapis.com/css?family=IBM+Plex+Sans">
+    <link href="http://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+
+    <title>ISS</title>
 </head>
 <body>
-    
+    <h1 class="heading">Irish Secret Sharing</h1>
+    <h1 class="sub">A Shamir's Secret Sharing Implementation</h1>
+
+    <div class="buttons">
+        <button class="shares">Shares</button>
+        <button class="secret">Secret</button>
+    </div>
+
+    <div class="sharesdiv active">
+        <form action="shares.php" method="post">
+            <label for="shares">Number of Shares:</label><br>
+            <input type="number" id="shares" name="shares" min="2" max="20" required><br><br>
+            <label for="threshold">Threshold:</label><br>
+            <input type="number" id="threshold" name="threshold" min="2" max="20" required><br><br>
+            <label for="secret">Secret:</label><br>
+            <input type="text" id="secret" name="secret" required><br><br>
+            <button class="begin" onclick="secretGen()">Submit</button>
+        </form>
+    </div>
+    <div class="secretsdiv inactive"></div>
+
+    <script>
+        // This script should give the relevant div active and the other inactive
+
+        // Get the buttons
+        var shares = document.getElementsByClassName("shares")[0];
+        var secret = document.getElementsByClassName("secret")[0];
+
+        // Get the divs
+        var sharesdiv = document.getElementsByClassName("sharesdiv")[0];
+        var secretsdiv = document.getElementsByClassName("secretsdiv")[0];
+
+        // Add event listeners
+        shares.addEventListener("click", function() {
+            sharesdiv.classList.remove("inactive");
+            sharesdiv.classList.add("active");
+            secretsdiv.classList.remove("active");
+            secretsdiv.classList.add("inactive");
+        });
+
+        secret.addEventListener("click", function() {
+            sharesdiv.classList.remove("active");
+            sharesdiv.classList.add("inactive");
+            secretsdiv.classList.remove("inactive");
+            secretsdiv.classList.add("active");
+        });
+
+    </script>
+
+    <style>
+        :root{
+            --black: #131515;
+            --darkGrey1: #1B1D1C;
+            --darkGrey2: #222423;
+            --darkGrey3: #313330;
+            --lightGrey1: #4E504B;
+            --lightGrey2: #898A81;
+            --lightGrey3: #A7A89C;
+            --white: #FFFFEC;
+            --red: #FF3633;
+            --orange: #FEA120;
+            --yellow: #FCFC73;
+            --green: #83D883;
+            --blue: #84B1C2;
+            --purple: #C185BD;
+        }
+        
+        body{
+            font-family: "IBM Plex Sans", sans-serif;
+            overflow-x: hidden;
+            color-scheme: dark;
+            background-color: var(--black);
+            background-attachment: fixed;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        
+        .heading{
+            font-family: "IBM Plex Mono", sans-serif;
+            text-align: center;
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sub{
+            font-family: "IBM Plex Mono", sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 200;
+            font-style: italic;
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .buttons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .buttons button{
+            margin: 5rem 1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            color: var(--white);
+            font-family: "IBM Plex Sans", sans-serif;
+            font-size: 2rem;
+            font-weight: 200;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+        
+        .shares{
+            background-color: var(--red);
+        }
+        
+        .shares:hover{
+            background-color: #FF7A71;
+        }
+        
+        .secret{
+            background-color: var(--blue);
+        }
+        
+        .secret:hover{
+            background-color: #BBD4D5;
+        }
+        
+        .active{
+            display: block;
+        }
+        
+        .inactive{
+            display: none;
+        }
+        
+        .sharesdiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            padding: 15px;
+            background-color: var(--darkGrey2);
+            border-radius: 0.5rem;
+        }
+        
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        
+        div label{
+            font-family: "IBM Plex Sans", sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-top: 5%;
+        }
+        
+        
+        div input[type=number]{
+            padding: 10px;
+            width: 15%;
+            border: 0.2rem solid var(--darkGrey3);
+            border-radius: 0.5rem;
+            background-color: var(--darkGrey1);
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+        }
+        
+        div input{
+            font: 1.5rem "IBM Plex Mono", monospace;
+            padding: 10px;
+            width: 50%;
+            border: 0.2rem solid var(--darkGrey3);
+            border-radius: 0.5rem;
+            background-color: var(--darkGrey1);
+        }
+        
+        .begin{
+            padding: 10px;
+            margin-top: 5%;
+            width: clamp(15%, 15%, 100%);
+            border: none;
+            border-radius: 0.5rem;
+            background-color: var(--green);
+            color: var(--white);
+            font-family: "IBM Plex Sans", sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+    </style>
 </body>
 </html>

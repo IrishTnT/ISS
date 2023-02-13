@@ -17,4 +17,10 @@ app.get("/", (req, res) => {
     res.sendFile(join(__dirname, "/index.html"));
 });
 
+function secretGen(){
+    res.sendFile(join(__dirname, "/secret.html"));
+    const secret = req.query.secret;
+    const shares = sss.split(secret, 5, 3);
+}
+
 app.listen(8080);

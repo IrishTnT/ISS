@@ -21,17 +21,19 @@
     </div>
 
     <div class="sharesdiv active">
-        <form action="shares.php" method="post">
+        <form onsubmit="return secretGen();" method="post">
             <label for="shares">Number of Shares:</label><br>
             <input type="number" id="shares" name="shares" min="2" max="20" required><br><br>
             <label for="threshold">Threshold:</label><br>
             <input type="number" id="threshold" name="threshold" min="2" max="20" required><br><br>
             <label for="secret">Secret:</label><br>
             <input type="text" id="secret" name="secret" required><br><br>
-            <button class="begin" onclick="secretGen()">Submit</button>
+            <button class="begin" onclick="secretGen();">Submit</button>
         </form>
     </div>
-    <div class="secretsdiv inactive"></div>
+    <div class="secretsdiv inactive">
+        <h1 class="heading">CUM!</h1>
+    </div>
 
     <script>
         // This script should give the relevant div active and the other inactive
@@ -157,14 +159,14 @@
         }
         
         .inactive{
-            display: none;
+            display: none !important;
         }
         
         .sharesdiv{
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50%;
+            width: clamp(50%, 60%, 100%);
             padding: 15px;
             background-color: var(--darkGrey2);
             border-radius: 0.5rem;
@@ -221,5 +223,7 @@
             transition: 0.2s ease-in-out;
         }
     </style>
+
+    <script src="index.js"></script>
 </body>
 </html>

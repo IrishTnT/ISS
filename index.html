@@ -16,23 +16,28 @@
     <h1 class="sub">A Shamir's Secret Sharing Implementation</h1>
 
     <div class="buttons">
-        <button class="shares">Shares</button>
-        <button class="secret">Secret</button>
+        <button class="shares">Encode</button>
+        <button class="secret">Decode</button>
     </div>
 
     <div class="sharesdiv active">
-        <form onsubmit="return secretGen();" method="post">
+        <form action="/generate">
             <label for="shares">Number of Shares:</label><br>
             <input type="number" id="shares" name="shares" min="2" max="20" required><br><br>
             <label for="threshold">Threshold:</label><br>
             <input type="number" id="threshold" name="threshold" min="2" max="20" required><br><br>
             <label for="secret">Secret:</label><br>
             <input type="text" id="secret" name="secret" required><br><br>
-            <button class="begin" onclick="secretGen();">Submit</button>
+            <button class="begin" type="submit">Submit</button>
         </form>
     </div>
     <div class="secretsdiv inactive">
-        <h1 class="heading">CUM!</h1>
+        <form action="/decode" id="sharesform">
+            <label for="shares">Enter your shares, separating with a new line.</label><br>
+            <textarea rows="10" id="shares" name="shares" form="sharesform" required>
+            </textarea><br><br>
+            <button class="begin" type="submit">Submit</button>
+        </form>
     </div>
 
     <script>
@@ -80,7 +85,7 @@
             --blue: #84B1C2;
             --purple: #C185BD;
         }
-        
+
         body{
             font-family: "IBM Plex Sans", sans-serif;
             overflow-x: hidden;
@@ -171,6 +176,16 @@
             background-color: var(--darkGrey2);
             border-radius: 0.5rem;
         }
+
+        .secretsdiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: clamp(50%, 60%, 100%);
+            padding: 15px;
+            background-color: var(--darkGrey2);
+            border-radius: 0.5rem;
+        }
         
         form{
             display: flex;
@@ -207,6 +222,13 @@
             border-radius: 0.5rem;
             background-color: var(--darkGrey1);
         }
+
+        textarea{
+            height: 100%;
+            width: 100%;
+            background-color: var(--darkGrey1);
+            border: 0.2rem solid var(--darkGrey3) ;
+        }
         
         .begin{
             padding: 10px;
@@ -223,7 +245,5 @@
             transition: 0.2s ease-in-out;
         }
     </style>
-
-    <script src="index.js"></script>
 </body>
 </html>

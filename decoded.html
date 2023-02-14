@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="http://fonts.googleapis.com/css?family=IBM+Plex+Sans">
+    <link href="http://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+
+    <title>ISS</title>
+</head>
+<body>
+    <h1 class="heading">Irish Secret Sharing</h1>
+    <h1 class="sub">A Shamir's Secret Sharing Implementation</h1>
+
+    <div class="sharesdiv active">
+        <div>
+            <h1 class="heading">Your decoded message:</h1>
+        </div>
+
+        <div class="divint">
+            <h1 class="answer"></h1>
+        </div>
+    </div>
+
+    <script>
+        var decoded = window.location.href.split("?")[1].split("=")[1];
+        decoded = decoded.replace(/%20/g, " ");
+
+        var answer = document.getElementsByClassName("answer")[0];
+
+        answer.innerHTML = decoded;
+
+    </script>
+
+    <style>
+        :root{
+            --black: #131515;
+            --darkGrey1: #1B1D1C;
+            --darkGrey2: #222423;
+            --darkGrey3: #313330;
+            --lightGrey1: #4E504B;
+            --lightGrey2: #898A81;
+            --lightGrey3: #A7A89C;
+            --white: #FFFFEC;
+            --red: #FF3633;
+            --orange: #FEA120;
+            --yellow: #FCFC73;
+            --green: #83D883;
+            --blue: #84B1C2;
+            --purple: #C185BD;
+        }
+
+        body{
+            font-family: "IBM Plex Sans", sans-serif;
+            overflow-x: hidden;
+            color-scheme: dark;
+            background-color: var(--black);
+            background-attachment: fixed;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .answer{
+            font-family: "IBM Plex sans", sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 200;
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .heading{
+            font-family: "IBM Plex Mono", sans-serif;
+            text-align: center;
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sub{
+            font-family: "IBM Plex Mono", sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 200;
+            font-style: italic;
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+
+        .divint{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 90%;
+            height: 90%;
+            padding: 15px;
+            margin-top:     40px;
+            background-color: var(--darkGrey3);
+            border-radius: 0.5rem;
+        }
+        
+        .sharesdiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: clamp(50%, 60%, 100%);
+            padding: 15px;
+            margin-top: 40px;
+            background-color: var(--darkGrey2);
+            border-radius: 0.5rem;
+        }
+
+    </style>
+</body>
+</html>

@@ -7,8 +7,6 @@ import secrets from "secrets.js-grempe";
 const app = express();
 const PORT = 8080;
 const __dirname = dirname(fileURLToPath(import.meta.url));
-// const recovered = sss.combine(shares.slice(3, 7))
-// console.log(recovered.toString())
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,9 +31,11 @@ app.get("/decode", (req, res) => {
     let combined = secrets.combine(shares);
     let recovered = secrets.hex2str(combined);
 
-    console.log(shares);
+    res.redirect(`/decoded?secret=${recovered}`);
+});
 
-    res.send(recovered);
+app.get("/decoded", (req, res) => {
+    res.sendFile(join(__dirname, "/decoded.html"));
 });
 
 app.listen(8080);
